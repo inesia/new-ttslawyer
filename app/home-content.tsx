@@ -54,87 +54,91 @@ export default function HomeContent() {
     <main className="overflow-hidden bg-background text-foreground">
 
       {/* ══════════════════════════════════════
-          HERO SECTION
+          HERO SECTION — Full-bleed image (client request)
       ══════════════════════════════════════ */}
-      <section className="relative isolate flex min-h-[88svh] flex-col overflow-hidden border-b border-border bg-[#f6efe4]">
-        <div
-          aria-hidden
-          className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat opacity-35"
-          style={{ backgroundImage: "url('/hero-bg.jpg')" }}
-        />
+      <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden border-b border-border">
+        {/* Full-bleed hero image */}
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/hero.jpeg"
+            alt="TTS Law Firm — With Law, Your Business is Secured"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          {/* Subtle gradient overlays for readability of bottom content */}
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-[#0a1628]/80 via-[#0a1628]/20 to-transparent" />
+          <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-[#0a1628]/30 to-transparent" />
+        </div>
 
-        {/* Main content: copy and portrait sit side by side on desktop */}
-        <div className="mx-auto grid w-full max-w-7xl flex-1 items-center gap-10 px-5 pb-10 pt-24 sm:gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:px-8 lg:pb-14 lg:pt-28">
-          <div className="relative z-10 max-w-xl">
-            <div className="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground">
-              <span className="size-1.5 rounded-full bg-accent" />
-              {id ? 'Jakarta · Indonesia · Berdiri 1997' : 'Jakarta · Indonesia · Est. 1997'}
-            </div>
-            <h1 className="font-serif text-[clamp(2.6rem,5.5vw,5.2rem)] leading-[0.94] tracking-[-0.04em]">
-              {id ? <>Dengan hukum,<br /><em className="text-accent italic">bisnis Anda</em> terlindungi.</> : <>With law, your<br /><em className="text-accent italic">business</em> is secured.</>}
-            </h1>
-            <p className="mt-7 max-w-md text-base leading-relaxed text-muted-foreground">
-              {id ? 'Penasihat hukum strategis bagi institusi dalam mengambil keputusan penting—mulai dari M&A lintas negara dan pembentukan modal hingga restrukturisasi utang PKPU yang kompleks.' : 'Strategic counsel for institutions navigating consequential decisions — from cross-border M&A and capital formation to intricate PKPU debt restructuring.'}
-            </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3.5 text-sm font-semibold text-primary-foreground shadow-md transition hover:-translate-y-0.5 hover:shadow-lg hover:bg-primary/90"
-              >
-                {id ? 'Diskusikan perkara Anda' : 'Discuss your matter'} <ArrowUpRight size={16} />
-              </Link>
-              <Link
-                href="/expertise"
-                className="inline-flex items-center gap-2 px-4 py-3.5 text-sm font-semibold text-foreground transition hover:text-accent"
-              >
-                {id ? 'Jelajahi keahlian' : 'Explore expertise'} <ChevronDown size={15} />
-              </Link>
-            </div>
+        {/* Spacer to push content to bottom */}
+        <div className="flex-1" />
 
-            {/* Credential badge — shown below CTA buttons, no overlap with photo */}
-            <div className="mt-10 hidden lg:inline-flex items-center gap-3 rounded-xl border border-border/70 bg-background/90 px-4 py-2.5 backdrop-blur-md shadow-sm">
-              <span className="grid size-8 place-items-center rounded-full bg-accent text-[11px] font-bold text-accent-foreground">
-                TT
-              </span>
+        {/* Bottom overlay content — CTA and brief info */}
+        <div className="relative z-10 px-5 pb-0 lg:px-8">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid items-end gap-8 pb-8 lg:grid-cols-[1fr_auto] lg:pb-10">
+
+              {/* Left — supporting text + CTAs */}
               <div>
-                <p className="text-xs font-serif font-semibold text-foreground leading-tight">Dr. (Commerce) Timotius Tumbur Simbolon, SH., MH.</p>
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-accent">{id ? 'Pendiri &amp; Managing Partner' : 'Founder &amp; Managing Partner'}</p>
+                <h1 className="sr-only">
+                  {id ? 'TTS Law Firm — Dengan Hukum, Bisnis Anda Terlindungi' : 'TTS Law Firm — With Law, Your Business is Secured'}
+                </h1>
+                <p className="max-w-lg text-sm leading-relaxed text-white/80 sm:text-base">
+                  {id
+                    ? 'Penasihat hukum strategis bagi institusi dalam mengambil keputusan penting — mulai dari M&A lintas negara dan pembentukan modal hingga restrukturisasi utang PKPU yang kompleks.'
+                    : 'Strategic counsel for institutions navigating consequential decisions — from cross-border M&A and capital formation to intricate PKPU debt restructuring.'}
+                </p>
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold text-[#0a1628] shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl hover:bg-white/90"
+                  >
+                    {id ? 'Diskusikan perkara Anda' : 'Discuss your matter'} <ArrowUpRight size={16} />
+                  </Link>
+                  <Link
+                    href="/expertise"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3.5 text-sm font-semibold text-white backdrop-blur-sm transition hover:bg-white/10 hover:border-white/50"
+                  >
+                    {id ? 'Jelajahi keahlian' : 'Explore expertise'} <ChevronDown size={15} />
+                  </Link>
+                </div>
+              </div>
+
+              {/* Right — Credential badge */}
+              <div className="hidden lg:inline-flex items-center gap-3 rounded-xl border border-white/20 bg-white/10 px-5 py-3 backdrop-blur-md shadow-lg">
+                <span className="grid size-9 place-items-center rounded-full bg-accent text-[11px] font-bold text-accent-foreground">
+                  TT
+                </span>
+                <div>
+                  <p className="text-xs font-serif font-semibold text-white leading-tight">Dr. (Commerce) Timotius Tumbur Simbolon, SH., MH.</p>
+                  <p className="text-[10px] font-semibold uppercase tracking-wider text-accent">{id ? 'Pendiri & Managing Partner' : 'Founder & Managing Partner'}</p>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="relative mx-auto w-full max-w-md self-end lg:max-w-none">
-            <div className="absolute inset-x-6 bottom-0 h-3/4 rounded-t-[48%] bg-accent/10" aria-hidden />
-            <Image
-              src="/timotius.png"
-              alt="Timotius Tumbur Simbolon, Founder and Managing Partner"
-              width={600}
-              height={900}
-              priority
-              className="relative z-10 mx-auto h-auto max-h-[68svh] w-auto object-contain object-bottom select-none"
-            />
           </div>
         </div>
 
         {/* Hero Credential Bar */}
-        <div className="relative z-10 border-t border-border/60 bg-[#f6efe4]/95 backdrop-blur-sm">
+        <div className="relative z-10 border-t border-white/15 bg-[#0a1628]/70 backdrop-blur-md">
           <div className="mx-auto grid max-w-7xl gap-4 px-5 py-5 sm:grid-cols-3 lg:px-8">
             <div>
-              <strong className="font-serif text-2xl text-foreground">Est. 1997</strong>
-              <p className="mt-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">{id ? 'Didirikan di Jakarta' : 'Founded in Jakarta'}</p>
+              <strong className="font-serif text-2xl text-white">Est. 1997</strong>
+              <p className="mt-0.5 text-[10px] uppercase tracking-widest text-white/50">{id ? 'Didirikan di Jakarta' : 'Founded in Jakarta'}</p>
             </div>
             <div className="sm:text-center">
-              <strong className="font-serif text-2xl text-foreground">INSOL International</strong>
-              <p className="mt-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">Member Firm</p>
+              <strong className="font-serif text-2xl text-white">INSOL International</strong>
+              <p className="mt-0.5 text-[10px] uppercase tracking-widest text-white/50">Member Firm</p>
             </div>
             <div className="sm:text-right">
-              <strong className="font-serif text-2xl text-foreground">National &amp; International</strong>
-              <p className="mt-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">{id ? 'Cakupan Praktik' : 'Practice Scope'}</p>
+              <strong className="font-serif text-2xl text-white">National &amp; International</strong>
+              <p className="mt-0.5 text-[10px] uppercase tracking-widest text-white/50">{id ? 'Cakupan Praktik' : 'Practice Scope'}</p>
             </div>
           </div>
 
-          <div className="mx-auto max-w-7xl border-t border-border/60 px-5 lg:px-8">
-            <div className="grid gap-2 py-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground sm:grid-cols-3">
+          <div className="mx-auto max-w-7xl border-t border-white/10 px-5 lg:px-8">
+            <div className="grid gap-2 py-3 text-[10px] font-semibold uppercase tracking-[0.18em] text-white/40 sm:grid-cols-3">
               <span>Advokat · Kurator Nasional</span>
               <span className="sm:text-center">INSOL International Member</span>
               <span className="sm:text-right">{id ? 'Korporasi · Transaksi · Litigasi' : 'Corporate · Transactional · Litigation'}</span>
